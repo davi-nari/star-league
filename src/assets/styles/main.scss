@@ -1,0 +1,15 @@
+* {
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.container {
+  max-width: 1494px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 15px;
+}
