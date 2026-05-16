@@ -6,14 +6,12 @@
     <aside
       class="w-65 border-r border-[#23262b] bg-[#181a1d] px-5 py-8 flex flex-col"
     >
-      <!-- Logo -->
       <div class="mb-12">
         <h1 class="text-3xl font-black tracking-tight">STAR LEAGUE</h1>
 
         <p class="text-sm text-gray-500 mt-1">Admin Panel</p>
       </div>
 
-      <!-- Navigation -->
       <nav class="flex flex-col gap-2">
         <router-link
           to="/admin/tours"
@@ -21,18 +19,6 @@
         >
           Туры
         </router-link>
-
-        <button
-          class="flex items-center gap-3 px-4 py-3 rounded-2xl text-gray-300 hover:bg-[#23262b] transition"
-        >
-          Матчи
-        </button>
-
-        <button
-          class="flex items-center gap-3 px-4 py-3 rounded-2xl text-gray-300 hover:bg-[#23262b] transition"
-        >
-          Команды
-        </button>
       </nav>
     </aside>
 
@@ -43,16 +29,14 @@
         class="sticky top-0 z-20 backdrop-blur-xl bg-[#111315]/80 border-b border-[#23262b]"
       >
         <div class="px-10 h-22 flex items-center justify-between">
-          <!-- Left -->
           <div>
             <h2 class="text-3xl font-bold">
               {{ mode === "edit" ? "Редактирование тура" : "Создание тура" }}
             </h2>
 
-            <p class="text-gray-500 mt-1">Управление матчами и результатами</p>
+            <p class="text-gray-500 mt-1">Управление матчами</p>
           </div>
 
-          <!-- Save -->
           <button
             @click="submitTour"
             class="h-12 px-6 rounded-2xl bg-white text-black font-semibold hover:opacity-90 transition"
@@ -129,8 +113,6 @@
           >
             <h4 class="text-2xl font-bold mb-4">Пока нет матчей</h4>
 
-            <p class="text-gray-500 mb-8">Добавьте первый матч</p>
-
             <button
               @click="addMatch"
               class="h-12 px-6 rounded-2xl bg-white text-black font-semibold"
@@ -139,14 +121,14 @@
             </button>
           </div>
 
-          <!-- MATCHES -->
+          <!-- Matches -->
           <div v-else class="flex flex-col gap-6">
             <div
               v-for="(match, index) in matches"
               :key="match.localId"
               class="rounded-3xl border border-[#23262b] bg-[#181a1d] p-8"
             >
-              <!-- Top -->
+              <!-- TOP -->
               <div class="flex items-center justify-between mb-8">
                 <div>
                   <h4 class="text-xl font-bold">
@@ -214,8 +196,8 @@
                 </div>
               </div>
 
-              <!-- SCORE -->
-              <div class="grid grid-cols-3 gap-6">
+              <!-- MEDIA -->
+              <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                 <!-- Home goals -->
                 <div>
                   <label class="block text-sm text-gray-400 mb-3">
@@ -246,6 +228,19 @@
                   />
                 </div>
 
+                <!-- Time -->
+                <div>
+                  <label class="block text-sm text-gray-400 mb-3">
+                    Время матча
+                  </label>
+
+                  <input
+                    v-model="match.time"
+                    type="time"
+                    class="w-full h-14 rounded-2xl bg-[#111315] border border-[#2b2f35] px-5 outline-none"
+                  />
+                </div>
+
                 <!-- Video -->
                 <div>
                   <label class="block text-sm text-gray-400 mb-3">
@@ -258,6 +253,94 @@
                     placeholder="https://youtube.com/..."
                     class="w-full h-14 rounded-2xl bg-[#111315] border border-[#2b2f35] px-5 outline-none"
                   />
+                </div>
+
+                <!-- Photos -->
+                <div class="xl:col-span-3">
+                  <div class="rounded-3xl border border-[#23262b] bg-[#111315] p-5">
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
+                      <div>
+                        <label class="block text-sm text-gray-400 mb-3">Фото</label>
+                        <p class="text-xs text-gray-500">Добавьте несколько ссылок на фото-галерею</p>
+                      </div>
+
+                      <button
+                        type="button"
+                        @click="addPhoto(match)"
+                        class="h-12 px-4 rounded-2xl bg-[#23262b] hover:bg-[#2b2f35] transition"
+                      >
+                        + Добавить фото
+                      </button>
+                    </div>
+
+                    <div class="space-y-3">
+                      <div
+                        v-for="(photo, photoIndex) in match.photos"
+                        :key="photoIndex"
+                        class="flex flex-col gap-3 sm:flex-row sm:items-center"
+                      >
+                        <input
+                          v-model="match.photos[photoIndex]"
+                          type="text"
+                          placeholder="https://drive.google.com/..."
+                          class="flex-1 h-14 rounded-2xl bg-[#111315] border border-[#2b2f35] px-5 outline-none"
+                        />
+
+                        <button
+                          type="button"
+                          @click="removePhoto(match, photoIndex)"
+                          class="h-14 px-4 rounded-2xl bg-red-500/10 text-red-400 hover:text-red-300 transition"
+                          v-if="match.photos.length > 1"
+                        >
+                          Удалить
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Interviews -->
+                <div class="xl:col-span-3">
+                  <div class="rounded-3xl border border-[#23262b] bg-[#111315] p-5">
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
+                      <div>
+                        <label class="block text-sm text-gray-400 mb-3">Интервью</label>
+                        <p class="text-xs text-gray-500">Добавьте несколько ссылок на интервью</p>
+                      </div>
+
+                      <button
+                        type="button"
+                        @click="addInterview(match)"
+                        class="h-12 px-4 rounded-2xl bg-[#23262b] hover:bg-[#2b2f35] transition"
+                      >
+                        + Добавить интервью
+                      </button>
+                    </div>
+
+                    <div class="space-y-3">
+                      <div
+                        v-for="(interview, interviewIndex) in match.interviews"
+                        :key="interviewIndex"
+                        class="flex flex-col gap-3 sm:flex-row sm:items-center"
+                      >
+                        <input
+                          v-model="match.interviews[interviewIndex]"
+                          type="text"
+                          placeholder="https://youtube.com/..."
+                          class="flex-1 h-14 rounded-2xl bg-[#111315] border border-[#2b2f35] px-5 outline-none"
+                        />
+
+                        <button
+                          type="button"
+                          @click="removeInterview(match, interviewIndex)"
+                          class="h-14 px-4 rounded-2xl bg-red-500/10 text-red-400 hover:text-red-300 transition"
+                          v-if="match.interviews.length > 1"
+                        >
+                          Удалить
+                        </button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -284,7 +367,6 @@
     </main>
   </div>
 </template>
-
 <script setup>
 import { computed, reactive, watch } from "vue";
 
@@ -409,7 +491,27 @@ watch(
 
         awayGoals: match.awayGoals,
 
+        /*
+            MEDIA
+          */
+        time: match.time || "",
+
         videoUrl: match.videoUrl || "",
+
+        /*
+            MULTIPLE
+          */
+        photos: match.photos?.length
+          ? match.photos
+          : match.photosUrl
+          ? [match.photosUrl]
+          : [""],
+
+        interviews: match.interviews?.length
+          ? match.interviews
+          : match.interviewUrl
+          ? [match.interviewUrl]
+          : [""],
       });
     });
 
@@ -439,7 +541,19 @@ const addMatch = () => {
     homeGoals: null,
     awayGoals: null,
 
+    /*
+      MEDIA
+    */
+    time: "",
+
     videoUrl: "",
+
+    /*
+      MULTIPLE
+    */
+    photos: [""],
+
+    interviews: [""],
   });
 };
 
@@ -451,24 +565,52 @@ const removeMatch = (index) => {
 };
 
 /*
+  ADD PHOTO
+*/
+const addPhoto = (match) => {
+  match.photos.push("");
+};
+
+/*
+  REMOVE PHOTO
+*/
+const removePhoto = (match, index) => {
+  match.photos.splice(index, 1);
+};
+
+/*
+  ADD INTERVIEW
+*/
+const addInterview = (match) => {
+  match.interviews.push("");
+};
+
+/*
+  REMOVE INTERVIEW
+*/
+const removeInterview = (match, index) => {
+  match.interviews.splice(index, 1);
+};
+
+/*
   DISABLED TEAM
 */
 const isTeamDisabled = (teamId, currentMatchId, side) => {
   return matches.some((match) => {
     /*
-      CURRENT MATCH
-    */
+        CURRENT MATCH
+      */
     if (match.localId === currentMatchId) {
       /*
-        HOME
-      */
+          HOME
+        */
       if (side === "home") {
         return match.awayTeamId === teamId;
       }
 
       /*
-        AWAY
-      */
+          AWAY
+        */
       if (side === "away") {
         return match.homeTeamId === teamId;
       }
@@ -477,8 +619,8 @@ const isTeamDisabled = (teamId, currentMatchId, side) => {
     }
 
     /*
-      OTHER MATCHES
-    */
+        OTHER MATCHES
+      */
     return match.homeTeamId === teamId || match.awayTeamId === teamId;
   });
 };
@@ -495,8 +637,8 @@ const isMatchPlayed = (match) => {
 */
 const submitTour = async () => {
   /*
-    VALIDATION
-  */
+      VALIDATION
+    */
 
   if (!tour.number || !tour.date) {
     alert("Заполните тур");
@@ -522,8 +664,8 @@ const submitTour = async () => {
 
   try {
     /*
-      CREATE
-    */
+        CREATE
+      */
     if (props.mode === "create") {
       await leagueStore.createTourWithMatches({
         number: tour.number,
@@ -536,12 +678,8 @@ const submitTour = async () => {
       alert("Тур успешно создан");
     } else {
       /*
-      EDIT
-    */
-      /*
-        UPDATE LATER
-      */
-
+          EDIT
+        */
       await leagueStore.updateTourWithMatches(props.tourId, {
         number: tour.number,
 
@@ -554,8 +692,8 @@ const submitTour = async () => {
     }
 
     /*
-      REDIRECT
-    */
+        REDIRECT
+      */
     router.push("/admin/tours");
   } catch (error) {
     console.error(error);

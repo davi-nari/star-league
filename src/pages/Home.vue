@@ -4,10 +4,18 @@
     Загрузка...
   </div>
   <div class="h-[calc(100vh-83px)] w-full overflow-hidden">
+    <!-- DESKTOP -->
     <img
       src="@/assets/images/banner.jpg"
       alt="Banner"
-      class="w-full h-full object-cover"
+      class="hidden md:block w-full h-full object-cover"
+    />
+
+    <!-- MOBILE -->
+    <img
+      src="@/assets/images/banner-mobile.png"
+      alt="Banner Mobile"
+      class="block md:hidden w-full h-full object-cover"
     />
   </div>
   <main class="main pb-10!">

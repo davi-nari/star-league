@@ -301,6 +301,20 @@ export const useLeagueStore = defineStore("league", {
 
             videoUrl: match.videoUrl || "",
 
+            time: match.time || "",
+
+            photos: Array.isArray(match.photos)
+              ? match.photos.filter(Boolean)
+              : match.photos
+              ? [match.photos]
+              : [],
+
+            interviews: Array.isArray(match.interviews)
+              ? match.interviews.filter(Boolean)
+              : match.interviews
+              ? [match.interviews]
+              : [],
+
             date: payload.date,
           };
 
@@ -470,6 +484,20 @@ export const useLeagueStore = defineStore("league", {
             isPlayed: played,
 
             videoUrl: match.videoUrl || "",
+
+            time: match.time || "",
+
+            photos: Array.isArray(match.photos)
+              ? match.photos.filter(Boolean)
+              : match.photos
+              ? [match.photos]
+              : [],
+
+            interviews: Array.isArray(match.interviews)
+              ? match.interviews.filter(Boolean)
+              : match.interviews
+              ? [match.interviews]
+              : [],
 
             date: payload.date,
           };

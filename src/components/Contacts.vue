@@ -1,18 +1,20 @@
 <template>
   <div>
-    <ul class="flex justify-between">
+    <!-- SOCIALS -->
+    <ul class="grid grid-cols-1 md:grid-cols-3 gap-10">
+      <!-- YOUTUBE -->
       <li>
         <a
-          href="#"
+          href="https://m.youtube.com/@chelanoofficial"
+          target="_blank"
           class="group flex flex-col items-center transition-all duration-300"
         >
-          <img src="@/assets/images/qr1.png" alt="" />
+          <img src="@/assets/images/qr1.png" alt="qr" />
 
-          <!-- Добавляем group-hover:text-[#ce171a] для текста -->
           <h3
             class="text-white text-4xl mt-8! transition-colors duration-300 group-hover:text-[#ce171a]"
           >
-            СHELANO
+            CHELANO
           </h3>
 
           <p
@@ -22,18 +24,20 @@
           </p>
         </a>
       </li>
+
+      <!-- INST -->
       <li>
         <a
-          href="#"
+          href="https://www.instagram.com/fc_chelano?igsh=MmUxMjc0b3pwa2Jx"
+          target="_blank"
           class="group flex flex-col items-center transition-all duration-300"
         >
-          <img src="@/assets/images/qr2.png" alt="" />
+          <img src="@/assets/images/qr2.png" alt="qr" />
 
-          <!-- Добавляем group-hover:text-[#ce171a] для текста -->
           <h3
             class="text-white text-4xl mt-8! transition-colors duration-300 group-hover:text-[#ce171a]"
           >
-            СHELANO
+            CHELANO
           </h3>
 
           <p
@@ -43,14 +47,16 @@
           </p>
         </a>
       </li>
+
+      <!-- STAR -->
       <li>
         <a
-          href="#"
+          href="https://www.instagram.com/starleague.uzb?igsh=MTZkZGg4dHZncG00Zw=="
+          target="_blank"
           class="group flex flex-col items-center transition-all duration-300"
         >
-          <img src="@/assets/images/qr3.png" alt="" />
+          <img src="@/assets/images/qr3.png" alt="qr" />
 
-          <!-- Добавляем group-hover:text-[#ce171a] для текста -->
           <h3
             class="text-white text-4xl mt-8! transition-colors duration-300 group-hover:text-[#ce171a]"
           >
@@ -65,45 +71,89 @@
         </a>
       </li>
     </ul>
-    <!-- НОВАЯ СЕКЦИЯ: КОНТАКТЫ И КАРТА -->
+
+    <!-- CONTACTS -->
     <section class="grid grid-cols-1 lg:grid-cols-2 gap-10 mt-20! items-start">
-      <!-- ФОРМА СВЯЗИ -->
+      <!-- FORM -->
       <div
-        class="bg-[#1e1f22]/50 p-8! rounded-2xl border border-gray-800 backdrop-blur-sm"
+        class="bg-[#1e1f22]/50 p-8! rounded-3xl border border-gray-800 backdrop-blur-sm"
       >
-        <h2 class="text-white text-4xl font-bold mb-2!">Свяжитесь с нами</h2>
-        <p class="text-gray-400 mb-8!">
-          Есть вопросы? Оставьте заявку или позвоните нам.
-        </p>
+        <!-- Top -->
+        <div class="mb-8!">
+          <h2 class="text-white text-4xl font-bold mb-3!">Свяжитесь с нами</h2>
 
-        <form class="space-y-6">
-          <input
-            type="text"
-            placeholder="Ваше имя"
-            class="w-full bg-[#0E1201]! border border-gray-700 rounded-xl px-5! py-4! text-white focus:outline-none focus:border-[#ce171a]! transition-colors"
-          />
+          <p class="text-gray-400">Оставьте заявку и мы свяжемся с вами</p>
+        </div>
 
-          <div class="flex flex-col space-y-2">
-            <label class="text-gray-400 text-sm ml-1! mt-4!"
-              >Наш номер телефона:</label
-            >
+        <!-- FORM -->
+        <form @submit.prevent="submit" class="space-y-6">
+          <!-- NAME -->
+          <div>
+            <label class="block text-gray-400 text-sm mb-3!"> Ваше имя </label>
+
+            <input
+              v-model="form.name"
+              type="text"
+              placeholder="Введите имя"
+              class="w-full bg-[#0E1201]! border border-gray-700 rounded-xl px-5! py-4! text-white focus:outline-none focus:border-[#ce171a]! transition-colors"
+            />
+          </div>
+
+          <!-- PHONE -->
+          <div>
+            <label class="block text-gray-400 text-sm mb-3!">
+              Номер телефона
+            </label>
+
+            <input
+              v-model="form.phone"
+              type="tel"
+              placeholder="+998 90 123 45 67"
+              class="w-full bg-[#0E1201]! border border-gray-700 rounded-xl px-5! py-4! text-white focus:outline-none focus:border-[#ce171a]! transition-colors"
+            />
+          </div>
+
+          <!-- MESSAGE -->
+          <div>
+            <label class="block text-gray-400 text-sm mb-3!"> Сообщение </label>
+
+            <textarea
+              v-model="form.message"
+              rows="5"
+              placeholder="Введите сообщение"
+              class="w-full bg-[#0E1201]! border border-gray-700 rounded-xl px-5! py-4! text-white focus:outline-none focus:border-[#ce171a]! transition-colors resize-none"
+            ></textarea>
+          </div>
+
+          <!-- PHONE INFO -->
+          <div class="flex flex-col space-y-2 pt-4!">
+            <span class="text-gray-400 text-sm"> Или позвоните нам: </span>
+
             <a
               href="tel:+998880025252"
               class="text-2xl text-white font-bold hover:text-[#ce171a]! transition-colors"
             >
-              +998 (88) 002-52-52
+              +998 (88) 008-52-52
             </a>
           </div>
 
+          <!-- BUTTON -->
           <button
             type="submit"
-            class="w-full bg-[#ce171a]! hover:bg-[#a81215] text-white font-bold py-4! rounded-xl mt-8! transition-colors"
+            :disabled="loading"
+            class="w-full bg-[#ce171a]! hover:bg-[#a81215] text-white font-bold py-4! rounded-xl mt-8! transition-colors disabled:opacity-50"
           >
-            Отправить запрос
+            {{ loading ? "Отправка..." : "Отправить запрос" }}
           </button>
+
+          <!-- SUCCESS -->
+          <p v-if="success" class="text-green-400 text-center text-sm">
+            Заявка успешно отправлена
+          </p>
         </form>
       </div>
 
+      <!-- MAP -->
       <div
         class="h-full min-h-100 rounded-3xl overflow-hidden border border-gray-800 shadow-2xl"
       >
@@ -124,6 +174,99 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { reactive, ref } from "vue";
 
-<style lang="scss" scoped></style>
+/*
+  TG
+*/
+const BOT_TOKEN = "8660956725:AAHhuz3uSsXrZcCRV_DYWsE4f38NU4r9ibQ";
+
+const CHAT_ID = "971193945";
+
+/*
+  STATE
+*/
+const loading = ref(false);
+
+const success = ref(false);
+
+/*
+  FORM
+*/
+const form = reactive({
+  name: "",
+
+  phone: "",
+
+  message: "",
+});
+
+/*
+  SUBMIT
+*/
+const submit = async () => {
+  try {
+    /*
+      VALIDATION
+    */
+    if (!form.name || !form.phone) {
+      alert("Заполните обязательные поля");
+
+      return;
+    }
+
+    loading.value = true;
+
+    success.value = false;
+
+    /*
+      TEXT
+    */
+    const text = `
+Новая заявка STAR LEAGUE
+
+ Имя: ${form.name}
+
+ Телефон: ${form.phone}
+
+ Сообщение:
+${form.message || "Нет"}
+`;
+
+    /*
+      SEND
+    */
+    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+      method: "POST",
+
+      headers: {
+        "Content-Type": "application/json",
+      },
+
+      body: JSON.stringify({
+        chat_id: CHAT_ID,
+
+        text,
+      }),
+    });
+
+    /*
+      RESET
+    */
+    form.name = "";
+
+    form.phone = "";
+
+    form.message = "";
+
+    success.value = true;
+  } catch (error) {
+    console.error(error);
+
+    alert("Ошибка отправки");
+  } finally {
+    loading.value = false;
+  }
+};
+</script>

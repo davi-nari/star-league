@@ -10,17 +10,20 @@
     <!-- CONTENT -->
     <template v-else>
       <!-- Tabs -->
-      <div class="matchdays-tabs">
-        <button
-          v-for="tour in tours"
-          :key="tour.id"
-          :class="{
-            active: activeTour === tour.id,
-          }"
-          @click="activeTour = tour.id"
-        >
-          {{ tour.number }} тур
-        </button>
+      <div class="matchdays-tabs overflow-x-auto scrollbar-hide">
+        <div class="flex gap-3 min-w-max">
+          <button
+            v-for="tour in tours"
+            :key="tour.id"
+            :class="{
+              active: activeTour === tour.id,
+            }"
+            @click="activeTour = tour.id"
+            class="shrink-0"
+          >
+            {{ tour.number }} тур
+          </button>
+        </div>
       </div>
 
       <!-- Tour -->
@@ -239,6 +242,14 @@ const getTourDate = (matches) => {
 
   @media (max-width: 475px) {
     padding: 8px 12px;
+  }
+  &-tabs {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 }
 
