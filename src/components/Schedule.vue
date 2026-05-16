@@ -156,7 +156,11 @@ const leagueStore = useLeagueStore();
 /*
   TOURS
 */
-const tours = computed(() => leagueStore.toursWithMatches);
+const tours = computed(() => {
+  return [...leagueStore.toursWithMatches].sort(
+    (a, b) => Number(a.number) - Number(b.number),
+  );
+});
 
 /*
   ACTIVE TOUR
