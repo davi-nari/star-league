@@ -304,9 +304,11 @@
                 :href="photo"
                 target="_blank"
                 rel="noreferrer noopener"
-                class="rounded-2xl border border-[#23262b] bg-[#111315] px-5 py-4 text-sm text-white hover:bg-[#1f2226] transition"
+                class="flex items-center justify-between rounded-2xl border border-[#23262b] bg-[#111315] px-5 py-4 text-sm text-white hover:bg-[#1f2226] hover:border-[#4f9dff] transition shadow-sm"
+                :title="`Открыть фото ${index + 1}`"
               >
-                Фото {{ index + 1 }}
+                <span class="font-semibold">Фото {{ index + 1 }}</span>
+                <span class="text-[#4f9dff]">Открыть ↗</span>
               </a>
             </template>
 

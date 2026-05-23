@@ -84,6 +84,12 @@
                   {{ match.awayTeam?.name }}
                 </span>
               </div>
+              <!-- Time -->
+              <div class="match__info-time">
+                <span v-if="match.time" class="time-text">
+                  {{ match.time }}
+                </span>
+              </div>
 
               <!-- Score -->
               <div class="match__info-score">
@@ -322,6 +328,20 @@ const getTourDate = (matches) => {
     flex-direction: column;
     gap: 8px;
     flex: 1;
+  }
+
+  &-time {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 8px;
+
+    .time-text {
+      font-size: 14px;
+      color: #818181;
+      font-weight: 500;
+      white-space: nowrap;
+    }
   }
 }
 

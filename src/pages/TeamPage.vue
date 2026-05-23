@@ -289,6 +289,14 @@
                   }}
                 </div>
 
+                <!-- Time -->
+                <div
+                  v-if="match.time"
+                  class="text-gray-400"
+                >
+                  Время: {{ match.time }}
+                </div>
+
                 <!-- Video -->
                 <div
                   v-if="match.videoUrl"
