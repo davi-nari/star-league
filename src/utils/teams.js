@@ -43,8 +43,8 @@ export const teams = [
   },
   {
     id: 8,
-    name: "Akbars",
-    logo: "/teams/akbars.png",
-    slug: "akbars",
+    name: "Parvoz",
+    logo: "/teams/parvoz.png",
+    slug: "parvoz",
   },
 ];
