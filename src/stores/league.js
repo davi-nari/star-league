@@ -4,6 +4,7 @@ import { defineStore } from "pinia";
 import axios from "axios";
 
 import { teams } from "@/utils/teams";
+import { sortStandingsByHeadToHead } from "@/utils/standingsSort";
 
 const API_URL = "https://e5d67ec257465ce4.mokky.dev";
 
@@ -118,26 +119,7 @@ export const useLeagueStore = defineStore("league", {
       /*
           SORT
         */
-      return Object.values(table).sort((a, b) => {
-        /*
-              POINTS
-            */
-        if (b.points !== a.points) {
-          return b.points - a.points;
-        }
-
-        /*
-              GOAL DIFF
-            */
-        if (b.goalDiff !== a.goalDiff) {
-          return b.goalDiff - a.goalDiff;
-        }
-
-        /*
-              GOALS FOR
-            */
-        return b.goalsFor - a.goalsFor;
-      });
+      return sortStandingsByHeadToHead(Object.values(table), state.matches);
     },
 
     /*

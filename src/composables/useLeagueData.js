@@ -3,6 +3,8 @@
 import { computed } from "vue";
 
 import { teams } from "@/utils/teams";
+import { sortStandingsByHeadToHead } from "@/utils/standingsSort";
+import { sortStandingsByHeadToHead } from "@/utils/standingsSort";
 import { matches } from "@/utils/matches";
 import { tours } from "@/utils/tours";
 
@@ -90,20 +92,7 @@ export function useLeagueData() {
     });
 
     // Сортировка таблицы
-    return Object.values(table).sort((a, b) => {
-      // Очки
-      if (b.points !== a.points) {
-        return b.points - a.points;
-      }
-
-      // Разница голов
-      if (b.goalDiff !== a.goalDiff) {
-        return b.goalDiff - a.goalDiff;
-      }
-
-      // Забитые
-      return b.goalsFor - a.goalsFor;
-    });
+    return sortStandingsByHeadToHead(Object.values(table), matches);
   });
 
   /*
